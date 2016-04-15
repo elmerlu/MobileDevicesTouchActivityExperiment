@@ -1,0 +1,22 @@
+{
+  "name": "mobile-devices-touch-activity-experiment",
+  "version": "1.0.1",
+  "description": "Touch activity experiment for Mobile phone",
+  "main": "index.html",
+  "dependencies": {},
+  "devDependencies": {
+    "less": "latest",
+    "less-plugin-clean-css": "latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elmerlu/MobileDevicesTouchActivityExperiment.git"
+  },
+  "author": "elmer lu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/elmerlu/MobileDevicesTouchActivityExperiment/issues",
+    "email": "elmer.lu68@gmail.com"
+  },
+  "homepage": "https://github.com/elmerlu/MobileDevicesTouchActivityExperiment#readme"
+}

@@ -1,2 +1,2 @@
 # MobileDevicesTouchActivityExperiment
-Mobile Devices Touch Activity Experiment Source
+Touch activity experiment for Mobile phone
