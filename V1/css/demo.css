@@ -1,0 +1,136 @@
+body {
+    /*background-color: yellow;*/
+    margin: 0px;
+}
+
+.memu {
+    /*background-color: red;*/
+    padding: 10px;
+}
+
+a {
+  text-decoration:none; 
+}
+
+div.memu div{
+    margin: 10px;
+}
+
+.memu button {
+    height: 50px;
+    width: 120px;
+    font-size: 18px;
+    border: black 2px solid;
+    border-radius: 10px;
+    margin: 0px;
+    cursor: pointer;
+    background-color: #EEEEEE;
+}
+
+.demo .control {
+    width: 100%;
+    background: #EEEEEE;
+    /*background-color: red;*/
+}
+
+.demo .control .row {
+    width: 100%;
+}
+
+.demo .control,
+.demo .control .row,
+.content {
+    float: left;
+}
+
+.demo button , .demo div.object {
+    border: black 2px solid;
+    border-radius: 15px;
+    background-color: white;
+}
+
+.demo button.target , .demo div.click{
+    background-color: red;
+}
+
+.demo button , .demo div.target, .demo div.object, .demo div.background {
+    height: 100%;
+    width: 100%;
+}
+
+.demo .control button {
+    width: 50px;
+    height: 40px;
+    padding: 5px;
+}
+
+.demo div.target {
+    background-image: url('../img/trash.png');
+    background-size: 100%;
+}
+
+.content {
+    width: 100%;
+    height: 80%;
+    /*margin-top: 100px; */
+}
+
+button.button {
+    border-radius: 12px;
+    background: #EEEEEE;
+}
+
+#SIZEVIEW {
+    visibility: hidden;
+}
+
+button.button,
+.lab1.lv1 button.button {
+    width: 10.8472mm;
+    height: 6.188mm;
+}
+
+.lab1.lv2 button.button {
+    width: 12.74mm;
+    height: 7.28mm;
+}
+
+.lab1.lv3 button.button {
+    width: 13.559mm;
+    height: 7.7532mm;
+}
+
+.lab1.lv4 button.button {
+    width: 14.9058mm;
+    height: 8.5176mm;
+}
+
+.lab1.lv5 button.button {
+    width: 16.2708mm;
+    height: 9.3002mm;
+}
+
+.lab2.lv1 div.object {
+    width: 11.326mm !important;
+    height: 11.326mm !important;
+}
+
+.lab2.lv2 div.object {
+    width: 13.3mm !important;
+    height: 13.3mm !important;
+}
+
+.lab2.lv3 div.object {
+    width: 14.154mm !important;
+    height: 14.154mm !important;
+}
+
+.lab2.lv4 div.object {
+    width: 15.568mm !important;
+    height: 15.568mm !important;
+}
+
+.lab2.lv5 div.object {
+    width: 16.982mm !important;
+    height: 16.982mm !important;
+}
