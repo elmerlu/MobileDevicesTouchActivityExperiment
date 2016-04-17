@@ -143,6 +143,14 @@ button {
         
         button {
             #button-size(@board-button-width, @board-button-height);
+
+            &:focus {
+                border: none;
+                outline: none;
+                border-style: outset;
+                border-width: 2px;
+                border-color: buttonface;
+            }
         }
 
         button.target {
