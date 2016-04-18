@@ -1,28 +1,31 @@
 (function( $ ){
     var timing = new Timing();
+    var scoring = new Scoring();
     var targetClass = 'target';
-    var targets;
+    var targets = null;
     var btns = getObjs();
+    var intervalTask = null;
+
     for (var i = 0; i < btns.length; i++) {
-        //$(btns[i]).on('click', clickEvent);
+        $(btns[i]).on('click', clickEvent);
     };
     $('#startbtn').on('click', function () {
 
         if(timing.isTiming()) {
-
-            timing.stop();
-
+            //stop
+            finishEvent();
             var btns = $('button[type^="target"]');
             for (var i = 0; i < btns.length; i++) {
                 $(btns[i]).removeClass(targetClass);
             };
             $(this).html('Start');
         }else {
+            //start
             targets = getObjs();
             timing.countdown(15000, 
                 function(time) {
                     $('#time').html((time/1000).toFixed(3))
-                    timing.stop();
+                    finishEvent();
                     $(this).html('Start');
                 }, 
                 null, 
@@ -30,10 +33,11 @@
                     $('#time').html((time/1000).toFixed(3))
                 }
             );
-            
+            scoring.reset();
             $(this).html('Stop');
+            $('#score').html(0);
                         
-            nextEvent();
+            startEvent();
         }
     });
 
@@ -82,25 +86,35 @@
         return btns;
     }
 
+    function startEvent() {
+        intervalTask = setInterval(function() {
+            nextEvent();
+        }, 300);
+    }
 
     function nextEvent() {
-        var firstElement = targets.splice(0,1);
+        var index = Math.floor((Math.random() * targets.length));
+        var i = index;
+        do {
+            var firstElement = targets[i++];
+            i%=targets.length;
+            if(i == index) {
+                return;
+            }
+        }while($(firstElement).hasClass(targetClass))
         $(firstElement).addClass(targetClass);
     }
 
     function clickEvent() {
-        if($(this).hasClass(targetClass)) {
+        if(timing.isTiming() && $(this).hasClass(targetClass)) {
             $(this).removeClass(targetClass);
-            if(btns.length - targets.length == 20) {
-                finishEvent();
-            }else {
-                console.log(targets.length);
-                nextEvent();
-            }
+            scoring.addScore(1);
+            $('#score').html(scoring.getScore());
         }
     }
 
     function finishEvent() {
+        clearInterval(intervalTask);
         timing.stop();
 
         // var btns = $('button[type^="target"]');
