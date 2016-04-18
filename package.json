@@ -1,12 +1,12 @@
 {
   "name": "mobile-devices-touch-activity-experiment",
-  "version": "1.0.1",
+  "version": "2.0.1",
   "description": "Touch activity experiment for Mobile phone",
   "main": "index.html",
   "dependencies": {},
-  "devDependencies": {
-    "less": "latest",
-    "less-plugin-clean-css": "latest"
+  "devDependencies": {},
+  "scripts": {
+    "less-sublime": "npm i less less-plugin-clean-css -g"
   },
   "repository": {
     "type": "git",

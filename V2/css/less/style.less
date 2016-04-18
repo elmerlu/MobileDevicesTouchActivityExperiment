@@ -1,0 +1,191 @@
+// Variables
+@my-menu: menu;
+@my-navbar: navbar;
+@my-content: content;
+@background-color: #ffffff;
+@text-color: #000000;
+
+@navbar-button-width: 16.2708mm;
+@navbar-button-height: 9.3002mm;
+@board-button-width: 16.982mm;
+@board-button-height: @board-button-width;
+@board-button-target-color: red;
+
+// function
+#button-size(@width: auto, @height: auto){
+    border-radius: 10%;
+    border-radius: 8px;
+    width: @width;
+    height: @height;
+}
+
+#content-button (@width, @height) {
+    .@{my-content} {
+        .board{
+            button {
+                #button-size(@width, @height);
+            }
+        }
+    }
+}
+
+// Usage
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body {    
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif,"微軟正黑體";
+    font-size: 14px;
+    line-height: 1.42857143;
+    background: @background-color;
+    color: @text-color;
+    margin: 0px;
+}
+
+div {
+    display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+button {
+    &.btn-start {
+        color: white;
+        background-color: peru;
+    }
+
+    &.btn-back {
+        color: white;
+        background-color: black;
+    }
+}
+
+@margin-size: 10px;
+.right {
+    float: right;
+    margin-right: @margin-size;
+}
+
+.left {
+    float: left;
+    margin-left: @margin-size;
+}
+
+.row {
+    margin: 0px;
+
+    &:before, &:after {
+        display: table;
+        content: " ";
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+:after, :before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}    
+
+.@{my-menu} {
+    font-weight: bold;
+    margin: 40px auto;
+
+    a button {
+        #button-size(120px, 60px);
+        margin: 10px;
+        font-size: 18pt;
+        font-weight: bold;
+    }
+}
+
+.@{my-navbar} {
+    text-align: center;
+    margin: 15px 0px;    
+
+    button {
+        #button-size(@navbar-button-width, @navbar-button-height);
+    }
+
+    .info {
+        padding: 5px 20px;
+        border-radius: 10px;
+
+        &.info-score {
+            background-color: PowderBlue;
+            border: 1px Teal solid;
+        }
+
+        &.info-hight-score {
+            padding: 5px 10px;
+            background-color: Wheat;
+            border: 1px Tan solid;
+        }
+    }
+}
+
+.@{my-content} {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin: 0 auto;
+
+    .board{
+        margin: 50px auto;
+        
+        button {
+            margin: 1px auto;
+            #button-size(@board-button-width, @board-button-height);
+
+            &:focus {
+                border: none;
+                outline: none;
+                border-style: outset;
+                border-width: 2px;
+                border-color: buttonface;
+            }
+        }
+
+        button.target {
+            background-color: @board-button-target-color;
+        }
+    }
+}
+
+body {
+    &.lv1, &.lv2, &.lv3 {
+        #content-button (@board-button-width, @board-button-height);
+    }
+
+    &.lv4 {
+        #content-button (@board-button-width * 0.8, @board-button-height * 0.8);
+    }
+
+    &.lv5 {
+        #content-button (@board-button-width * 0.65, @board-button-height * 0.65);
+    }
+}
+
+@media(max-width: 330px) {
+    body {
+    &.lv1, &.lv2, &.lv3 {
+        #content-button (@board-button-width * 0.8, @board-button-height * 0.8);
+    }
+
+    &.lv4 {
+        #content-button (@board-button-width * 0.64, @board-button-height * 0.64);
+    }
+
+    &.lv5 {
+        #content-button (@board-button-width * 0.65 * 0.8, @board-button-height * 0.65 * 0.8);
+    }
+}
+}
