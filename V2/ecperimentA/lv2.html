@@ -66,4 +66,22 @@
     <script src="../js/timing.js" type="text/javascript"></script>
     <script src="../js/scoring.js" type="text/javascript"></script>
     <script src="../js/experimentA/lv2.js" type="text/javascript"></script>
+    <script type="text/javascript">        
+        $('#startbtn').on('click', function () {
+
+            if($.isRunning()) {
+                //stop
+                $.finishEvent(function(){
+                    $(this).html('Start');    
+                });
+                
+            }else {
+                //start                                        
+                $.startEvent(function(){
+                    $(this).html('Stop');
+                    $('#score').html(0);
+                });
+            }
+        });
+    </script>
 </body>

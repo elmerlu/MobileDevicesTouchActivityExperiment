@@ -2,44 +2,12 @@
     var timing = new Timing();
     var scoring = new Scoring();
     var targetClass = 'target';
-    var targets = null;
-    var btns = getObjs();
+    var targets = getObjs();
     var intervalTask = null;
 
-    for (var i = 0; i < btns.length; i++) {
-        $(btns[i]).on('click', clickEvent);
+    for (var i = 0; i < targets.length; i++) {
+        $(targets[i]).on('click', clickEvent);
     };
-    $('#startbtn').on('click', function () {
-
-        if(timing.isTiming()) {
-            //stop
-            finishEvent();
-            var btns = $('button[type^="target"]');
-            for (var i = 0; i < btns.length; i++) {
-                $(btns[i]).removeClass(targetClass);
-            };
-            $(this).html('Start');
-        }else {
-            //start
-            targets = getObjs();
-            timing.countdown(15000, 
-                function(time) {
-                    $('#time').html((time/1000).toFixed(3))
-                    finishEvent();
-                    $(this).html('Start');
-                }, 
-                null, 
-                function(time) {
-                    $('#time').html((time/1000).toFixed(3))
-                }
-            );
-            scoring.reset();
-            $(this).html('Stop');
-            $('#score').html(0);
-                        
-            startEvent();
-        }
-    });
 
     function getObjs() {
     // if($('input[name="sort"]').prop('checked')){
@@ -86,10 +54,34 @@
         return btns;
     }
 
-    function startEvent() {
+    $.startEvent = function(startEventCallback, finishEventCallBack) {
+        startEvent(startEventCallback, finishEventCallBack);
+    };
+
+    function startEvent(startEventCallback, finishEventCallBack) {
+        scoring.reset();
+        for (var i = 0; i < targets.length; i++) {
+            $(targets[i]).removeClass(targetClass);
+        };
+
+        timing.countdown(15000, 
+            function(time) {
+                $('#time').html((time/1000).toFixed(3))
+                finishEvent(finishEventCallBack);
+                $(this).html('Start');
+            }, 
+            null, 
+            function(time) {
+                $('#time').html((time/1000).toFixed(3))
+            }
+        );
+
         intervalTask = setInterval(function() {
             nextEvent();
         }, 300);
+        if(startEventCallback != null) {
+            startEventCallback();
+        }
     }
 
     function nextEvent() {
@@ -113,14 +105,29 @@
         }
     }
 
-    function finishEvent() {
+    $.finishEvent = function(callback) {
+        finishEvent(callback);
+    };
+
+    function finishEvent(callback) {
         clearInterval(intervalTask);
         timing.stop();
+        if(callback != null) {
+            callback(scoring.getScore());
+        }
 
         // var btns = $('button[type^="target"]');
         // for (var i = 0; i < btns.length; i++) {
         //     $(btns[i]).removeClass(targetClass);
         // };
+    }
+
+    $.isRunning = function() {
+        return isRunning();
+    }
+
+    function isRunning() {
+        return timing.isTiming();
     }
 
 })(jQuery)

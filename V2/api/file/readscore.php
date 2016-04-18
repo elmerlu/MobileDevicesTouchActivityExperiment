@@ -5,5 +5,8 @@
     if(isset($_GET["key"])){
         $key=$_GET["key"];
     }
-    echo readScore($key);
+
+    if($key != NULL) {
+        echo "score:".readScore($key);
+    }
 ?>
