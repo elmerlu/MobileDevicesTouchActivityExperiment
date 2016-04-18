@@ -1,3 +1,3 @@
 <?php
-    $dir_path = "./.tmp";
+    $dir_path = dirname(dirname(__FILE__))."/tmp";
 ?>
