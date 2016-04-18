@@ -142,6 +142,7 @@ button {
         margin: 50px auto;
         
         button {
+            margin: 1px auto;
             #button-size(@board-button-width, @board-button-height);
 
             &:focus {
@@ -171,4 +172,20 @@ body {
     &.lv5 {
         #content-button (@board-button-width * 0.65, @board-button-height * 0.65);
     }
+}
+
+@media(max-width: 330px) {
+    body {
+    &.lv1, &.lv2, &.lv3 {
+        #content-button (@board-button-width * 0.8, @board-button-height * 0.8);
+    }
+
+    &.lv4 {
+        #content-button (@board-button-width * 0.64, @board-button-height * 0.64);
+    }
+
+    &.lv5 {
+        #content-button (@board-button-width * 0.65 * 0.8, @board-button-height * 0.65 * 0.8);
+    }
+}
 }
