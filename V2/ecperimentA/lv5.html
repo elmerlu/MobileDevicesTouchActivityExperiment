@@ -18,78 +18,142 @@
         </div>
         <div class="row">
             <div class="left info info-score">
-                <h3><div align="center">Score</div><div id="time" align="center">00</div></h3>
+                <h3><div align="center">Score</div><div id="score" align="center">0</div></h3>
             </div>
             <div class="left info info-hight-score">
-                <h3><div align="center">High Score</div><div id="time" align="center">00</div></h3>
+                <h3><div align="center">High Score</div><div id="highScore" data-key="labAlv5" align="center">0</div></h3>
             </div>
         </div>
     </div>
     <div class="content">
         <div class="board" align="center">
             <div class="row">
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
             </div>
             <div class="row">
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
             </div>
             <div class="row">
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
             </div>
             <div class="row">
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
             </div>
             <div class="row">
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
             </div>
             <div class="row">
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
             </div>
             <div class="row">
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
+                <button type="target-random"></button>
             </div>
         </div>
     </div>
+    <script src="../js/jquery-1.11.3.js"></script>
+    <script src="../js/timing.js" type="text/javascript"></script>
+    <script src="../js/scoring.js" type="text/javascript"></script>
+    <script src="../js/experimentA/lv2.js" type="text/javascript"></script>
+    <script type="text/javascript">        
+        $('#startbtn').on('click', function () {
+
+            if($.isRunning()) {
+                //stop
+                $(this).html('Start');                
+                var obj = this;
+                $.finishEvent(function(score){
+                    $(obj).html('Start');
+                    high_score($('#highScore'), score);
+                });
+                
+            }else {
+                //start    
+                $(this).html('Stop');
+                var obj = this;
+                $.startEvent(
+                    function(){
+                        $('#score').html(0);
+                    },
+                    function(score){
+                        $(obj).html('Start');
+                        high_score($('#highScore'), score);
+                    }
+                );
+            }
+        });
+
+        function high_score(obj, score) {
+            var key = $(obj).data('key');
+            var highScore = 0;
+            $.ajax('../api/file/readscore.php',{
+                method: 'GET',
+                data: {'key':key}
+            }).done(function(result){
+                if(result.startsWith("score:")) {
+                    highScore = parseInt(result.substr(6));
+
+                    if(score > highScore) {
+                        $.ajax('../api/file/writescore.php',{
+                            method: 'GET',
+                            data: {'key':key, 'score':score}
+                        });
+                        highScore = score;
+                    }
+                    
+                } else {
+                    $.ajax('../api/file/writescore.php',{
+                        method: 'GET',
+                        data: {'key':key, 'score':score}
+                    });
+                    highScore = score;
+                }
+                $(obj).html(highScore);
+            });
+
+        }
+
+        high_score($('#highScore'), 0);
+    </script>
 </body>
