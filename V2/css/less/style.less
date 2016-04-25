@@ -12,7 +12,7 @@
 @board-button-target-color: red;
 
 // function
-#button-size(@width: auto, @height: auto){
+#size(@width: auto, @height: auto){
     border-radius: 10%;
     border-radius: 8px;
     width: @width;
@@ -23,7 +23,7 @@
     .@{my-content} {
         .board{
             button {
-                #button-size(@width, @height);
+                #size(@width, @height);
             }
         }
     }
@@ -100,7 +100,7 @@ button {
     margin: 40px auto;
 
     a button {
-        #button-size(120px, 60px);
+        #size(120px, 60px);
         margin: 10px;
         font-size: 18pt;
         font-weight: bold;
@@ -112,7 +112,7 @@ button {
     margin: 15px 0px;    
 
     button {
-        #button-size(@navbar-button-width, @navbar-button-height);
+        #size(@navbar-button-width, @navbar-button-height);
     }
 
     .info {
@@ -143,7 +143,7 @@ button {
         
         button {
             margin: 1px auto;
-            #button-size(@board-button-width, @board-button-height);
+            #size(@board-button-width, @board-button-height);
 
             &:focus {
                 border: none;
@@ -157,7 +157,49 @@ button {
         button.target {
             background-color: @board-button-target-color;
         }
+
+        div.cell {
+            #size(@board-button-width, @board-button-height);
+            border: 1px #D2D2D2 solid;
+            border-radius: 0px;
+            line-height: 16.982mm;
+            vertical-align: middle;
+            margin: 0px;
+            display: table-cell;
+        }
+
+        div.targetBall {
+            #size(@board-button-width*0.8, @board-button-height*0.8);
+            border-radius: 50%;
+            background-color: red;
+        }
+
+        div[type='road'].cell{
+            &.rtop{
+                border-top-width: 2px;
+                border-top-color: black;
+            }
+
+            &.rbottom{
+                border-bottom-width: 2px;
+                border-bottom-color: black;
+            }
+
+            &.rright{
+                border-right-width: 2px;
+                border-right-color: black;
+            }
+
+            &.rleft{  
+                border-left-width: 2px;
+                border-left-color: black;
+            }
+        }
     }
+}
+
+.red {
+  background-color: red;
 }
 
 body {
