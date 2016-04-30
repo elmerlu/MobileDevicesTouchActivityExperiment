@@ -4,6 +4,7 @@
 
   function init() {
     $('#target').draggable({
+      revert : 'invalid',
       start: function() { startEvent(); },
       snap: '[type="destination"]',
       snapMode: 'inner'
