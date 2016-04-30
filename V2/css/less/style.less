@@ -179,10 +179,16 @@ button {
             }
         }
 
-        div.targetBall {
+        div.targetBall, div.destination {
             #size(@board-button-width*0.8, @board-button-height*0.8);
             border-radius: 50%;
+        }
+        div.targetBall {
             background-color: red;
+        }
+
+        div.destination {
+            border: 1px black solid;
         }
 
         div[type='road'].cell{

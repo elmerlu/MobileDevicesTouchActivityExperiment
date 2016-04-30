@@ -1,28 +1,42 @@
-(function( $ ){
-    $('#target').draggable();
-    $('div[type!="road"].cell').droppable({
-      accept: '#target',
-      hoverClass: 'red',
-      drop: function( event, ui ) {console.log('drop')},
-      over: function( event, ui ) {reset(ui)},
-      activate: function( event, ui ) {console.log('activate1')},
-      create: function( event, ui ) {console.log('create')},
-      drag: function( event, ui ) {onsole.log('drag')},
-      stop: function( event, ui ) {onsole.log('stop')},
-      tolerance :'touch'
+(function($) {
+  var timing = new Timing();
+  init();
+
+  function init() {
+    $('#target').draggable({
+      start: function() { startEvent(); },
+      snap: '[type="destination"]',
+      snapMode: 'inner'
     });
 
-    function reset(ui) {
-      
-      var oldtarget = ui.draggable[0];
-      console.log(oldtarget);
-      var newtarget = jQuery.extend({}, oldtarget);
-      console.log(newtarget);
-      // $('div[name="target-start"]').html(newtarget);
-      $(oldtarget).draggable( "destroy" );
+    $('div[type!="road"].cell').droppable({
+      accept: '#target',
+      over: function(event, ui) { touchHandler(event, ui); },
+      tolerance: 'touch'
+    });
 
-      // $('#target').css('left','0px');
-      // $('#target').css('top','0px');
-    }
+    $('[type="destination"]').droppable({
+      over: function(event, ui) { finishEvent(); }
+    });
+  }
+
+
+  function startEvent() {
+    timing.start(null, function(time) {
+      $('#time').html((time / 1000).toFixed(3));
+    });
+  }
+
+  function touchHandler(event, ui) {
+    var oldtarget = ui.draggable[0];
+    $(oldtarget).trigger('mouseup');
+    $(oldtarget).animate({ top: 0, left: 0 }, 'slow');
+  }
+
+  function finishEvent() {
+    timing.stop();
+    $('#target').draggable('destroy');
+    $('div[type!="road"].cell').droppable('disable');
+  }
 
 })(jQuery)
