@@ -1,31 +1,39 @@
 (function($) {
   var timing = new Timing();
-  init();
+  var targetObj, roads;
 
-  function init() {
-    $('#target').draggable({
+  function init(target, roads, destinations, timerMode, 
+    timerCallback, timeupCallback, finishEventCallBack) {
+    this.targetObj = $(target);
+    this.roads = $(roads);
+    this.targetObj.draggable({
       revert : 'invalid',
-      start: function() { startEvent(); },
+      start: function() { startEvent(timerMode, timerCallback); },
       snap: '[type="destination"]',
       snapMode: 'inner'
     });
 
-    $('div[type!="road"].cell').droppable({
+    this.roads.droppable({
       accept: '#target',
       over: function(event, ui) { touchHandler(event, ui); },
       tolerance: 'touch'
     });
 
-    $('[type="destination"]').droppable({
-      over: function(event, ui) { finishEvent(); }
+    $(destinations).droppable({
+      over: function(event, ui) { finishEvent(finishEventCallBack); }
     });
   }
 
 
-  function startEvent() {
-    timing.start(null, function(time) {
-      $('#time').html((time / 1000).toFixed(3));
-    });
+  function startEvent(timerMode, timerCallback, timeupCallback) {
+    switch(timerMode) {
+      case 'timer':
+        timing.start(null, timerCallback);
+        break;
+      case 'countdown':
+        timing.countdown(15000, timeupCallback, null, timerCallback);
+        break;
+    }
   }
 
   function touchHandler(event, ui) {
@@ -34,10 +42,25 @@
     $(oldtarget).animate({ top: 0, left: 0 }, 'slow');
   }
 
-  function finishEvent() {
+  function finishEvent(finishEventCallBack) {
     timing.stop();
-    $('#target').draggable('destroy');
-    $('div[type!="road"].cell').droppable('disable');
+    this.targetObj.draggable('destroy');
+    this.roads.droppable('disable');
+    finishEventCallBack();
   }
+
+  $.fn.experimentB = function(map) {
+    var target = map['tatget'],
+      roads = map['roads'],
+      destinations = map['destinations'],
+      timerMode = map['timerMode'],
+      timer = map['timer'],
+      timeup = map['timeup'],
+      finish = map['finish'];
+      if(timerMode == null ) { timerMode = 'timer';}
+      if(timeup == null ) { timeup = function(){};}
+      if(finish == null ) { finish = function(){};}
+      init(target, roads, destinations, timerMode, timer, timeup, finish);
+  };
 
 })(jQuery)

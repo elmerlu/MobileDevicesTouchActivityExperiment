@@ -30,7 +30,7 @@
                 <div name="target-start" class="cell rleft rtop rbottom " type="road">
                     <div id="target" class="targetBall"></div>
                 </div>
-                <div class="cell rtop rbottom" type="road"></div>
+                <div class="cell rtop rbottom" type="road"><div id="destination" class="destination" type="destination"></div></div>
                 <div class="cell rtop rbottom" type="road"></div>
                 <div class="cell rtop rbottom" type="road"></div>
                 <div class="cell rtop rright" type="road"></div>
@@ -88,4 +88,15 @@
     <script src="../js/jquery.ui.touch-punch.min.js"></script>
     <script src="../js/timing.js" type="text/javascript"></script>
     <script src="../js/experimentB/lv1.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $().experimentB({
+            tatget: '#target',
+            roads: 'div[type!="road"].cell',
+            destinations: '[type="destination"]',
+            timerMode: 'timer',
+            timer: function(time) {
+                $('#time').html((time / 1000).toFixed(3));
+            }
+        });
+    </script>
 </body>
