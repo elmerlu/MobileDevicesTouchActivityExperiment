@@ -29,12 +29,23 @@
     }
 }
 
-// Usage
+#content-cell (@width, @height) {
+    .@{my-content} {
+        .board{
+            div.cell {
+                #size(@width, @height);
+                border-radius: 0px;
+            }
+        }
+    }
+}
+
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+
 body {    
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif,"微軟正黑體";
     font-size: 14px;
@@ -158,10 +169,8 @@ button {
             background-color: @board-button-target-color;
         }
 
-        div.cell {
-            #size(@board-button-width, @board-button-height);
+        div.cell {            
             border: 1px #D2D2D2 solid;
-            border-radius: 0px;
             line-height: 16.982mm;
             vertical-align: middle;
             margin: 0px;
@@ -231,20 +240,39 @@ body {
     &.lv5 {
         #content-button (@board-button-width * 0.65, @board-button-height * 0.65);
     }
+
+    &.lv1, &.lv2, &.lv3, &.lv4, &.lv5 {
+         #content-cell (@board-button-width, @board-button-height);
+    }
 }
 
 @media(max-width: 330px) {
     body {
-    &.lv1, &.lv2, &.lv3 {
-        #content-button (@board-button-width * 0.8, @board-button-height * 0.8);
-    }
+        &.lv1, &.lv2, &.lv3 {
+            #content-button (@board-button-width * 0.8, @board-button-height * 0.8);
+        }
 
-    &.lv4 {
-        #content-button (@board-button-width * 0.64, @board-button-height * 0.64);
-    }
+        &.lv4 {
+            #content-button (@board-button-width * 0.64, @board-button-height * 0.64);
+        }
 
-    &.lv5 {
-        #content-button (@board-button-width * 0.65 * 0.8, @board-button-height * 0.65 * 0.8);
+        &.lv5 {
+            #content-button (@board-button-width * 0.65 * 0.8, @board-button-height * 0.65 * 0.8);
+        }
+
+        &.lv1, &.lv2, &.lv3, &.lv4, &.lv5 {
+            #content-cell (@board-button-width * 0.8, @board-button-height * 0.8);
+
+            .@{my-content} {
+
+                .board{
+                    
+                    div.targetBall, div.destination {
+                        #size(@board-button-width*0.64, @board-button-height*0.64);
+                        border-radius: 50%;
+                    }
+                }
+            }
+        }
     }
-}
 }
