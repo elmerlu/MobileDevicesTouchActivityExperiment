@@ -11,6 +11,13 @@
 @board-button-height: @board-button-width;
 @board-button-target-color: red;
 
+html, body {
+  overflow-x: hidden;
+}
+body {
+  // position: relative
+}
+
 // function
 #size(@width: auto, @height: auto){
     border-radius: 10%;
@@ -150,7 +157,8 @@ button {
     margin: 0 auto;
 
     .board{
-        margin: 50px auto;
+        margin: 50px 0px;
+        width: auto;
         
         button {
             margin: 1px auto;
@@ -195,6 +203,10 @@ button {
 
         div.targetBall {
             background-color: red;
+
+            &.over {
+                border: 3px orange solid;
+            }
         }
 
         div[type='red'].targetBall {
