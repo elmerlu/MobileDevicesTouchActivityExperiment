@@ -7,6 +7,7 @@
     }
 
     if($key != NULL) {
-        echo "score:".readScore($key);
+        $score = readScore($key);
+        echo $score === null ? null : "score:".$score;
     }
 ?>
