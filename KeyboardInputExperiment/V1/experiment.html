@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<head>
+    <title>Touch Activity Experiment A Lv5</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</head>
+<body class="lv5">
+    <div class="navbar" >
+        <div class="row">
+            <div class="left navbar-item">
+                <div class="left">Time:</div><div class="left" id="time">0.0</div>
+            </div>
+            <div class="left navbar-item">
+                <div class="left">Error:</div><div class="left" id="error">0</div>
+            </div>
+            <div class="right navbar-item">
+                <div class="left"><a href="./index.html">&lt;Back</a></div>
+            </div>
+            <div class="right navbar-item">
+                <div class="left"><a id="startbtn">&lt;Start&gt;</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div id="context" class="context">「黑體-繁」有兩種粗細,相較儷黑 僅一粗細,支持者主張「黑體繁」在介面上較為清晰,因為在需要顯示出體的場合</div>
+        <div class="input">
+            <textarea class="text" type="text" id="myInput" size="150"></textarea>
+        </div>
+    </div>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script src="js/timing.js" type="text/javascript"></script>
+    <script src="js/experiment.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $('#startbtn').on('click', function () {
+            $.keyboardInput($("#context").html(), $("#myInput"), function(error) {
+                $('#error').html(error);
+            });
+            if($.isRunning()) {
+                //stop
+                $(this).html('&lt;Start&gt;');
+                var obj = this;
+                $.finishEvent(function(){
+                    $(obj).html('&lt;Start&gt;');
+                });
+                
+            }else {
+                //start    
+                $(this).html('&lt;Stop&gt;');
+                var obj = this;
+                $("#myInput").val("");
+                $("#myInput").focus();
+                $.startEvent(
+                    function(time) {
+                        $('#time').html((time / 1000).toFixed(1));
+                    },
+                    function(){
+                        $('#time').html(0);
+                        $('#error').html(0);                        
+                    },
+                    function(score){
+                        $(obj).html('&lt;Start&gt;');
+                    }
+                );
+            }
+        });
+    </script>
+</body>
